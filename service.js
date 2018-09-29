@@ -7,8 +7,11 @@
 
   function shopifyConnectionService($http, $location, $window, $q) {
     var server = 'http://34.222.155.70';
-    // var server = 'http://localhost:3000';
 
+    if (localStorage.__SHOPIFY__ === 'undefined')
+      localStorage.removeItem('__SHOPIFY__');
+
+    console.log('[V] open the popup to auth');
 
     return function(obj) {
       var shop = obj.shop;
