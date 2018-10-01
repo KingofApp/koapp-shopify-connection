@@ -18,14 +18,14 @@
 
       function auth() {
         return $q(function(resolve) {
-          if (localStorage.__SHOPIFY__)
+          if (localStorage.__SHOPIFY__  && localStorage.__SHOPIFY__ !== 'undefined')
             resolve(localStorage.__SHOPIFY__)
           else {
-            window.onmessage = function(event) {
+            window.addEventListener('message', function(event) {
               console.log(event);
               localStorage.__SHOPIFY__ = event.data.access_token;
               resolve(localStorage.__SHOPIFY__);
-            };
+            }, false);
             $window.open(server + '/shopify/shop/' + shop, '_blank');
           }
         });
