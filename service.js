@@ -22,6 +22,7 @@
             resolve(localStorage.__SHOPIFY__)
           else {
             window.onmessage = function(event) {
+              console.log(event);
               localStorage.__SHOPIFY__ = event.data.access_token;
               resolve(localStorage.__SHOPIFY__);
             };
