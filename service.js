@@ -19,14 +19,16 @@
         if (localStorage.__SHOPIFY__  && localStorage.__SHOPIFY__ !== 'undefined')
           resolve(localStorage.__SHOPIFY__)
         else {
-          window.addEventListener('message', function(event) {
+          function handler() {
             if (!event.data.access_token)
               event.preventDefault();
 
-            console.log(event);
             localStorage.__SHOPIFY__ = event.data.access_token;
+            window.removeEventListener('message', handler, false);
             resolve(localStorage.__SHOPIFY__);
-          }, false);
+          }
+
+          window.addEventListener('message', handler, false);
           $window.open(server + '/shopify/shop/' + shop, '_blank');
         }
       });
